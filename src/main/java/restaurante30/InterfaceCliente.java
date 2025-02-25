@@ -8,8 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,22 +16,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-
-class CardapioItem {
-    private String nome;
-    private double preco;
-    private String imagem;
-
-    public CardapioItem(String nome, double preco, String imagem) {
-        this.nome = nome;
-        this.preco = preco;
-        this.imagem = imagem;
-    }
-
-    public String getNome() { return nome; }
-    public double getPreco() { return preco; }
-    public String getImagem() { return imagem; }
-}
 
 public class InterfaceCliente extends Application {
     private Stage primaryStage;
@@ -48,10 +31,10 @@ public class InterfaceCliente extends Application {
     }
 
     private void mostrarTelaInicial() {
-        Label lblBoasVindas = new Label("Seja Bem vindo ao Restaurante F30");
+        Label lblBoasVindas = new Label("Seja Bem-vindo ao Restaurante F30");
         lblBoasVindas.setStyle("-fx-font-size: 24px; -fx-text-fill: #ffffff;");
 
-        Label labelMesa = new Label("Número da Mesa:");
+        Label labelMesa = new Label("Número da Mesa:");
         labelMesa.setStyle("-fx-text-fill: white;");
         TextField campoMesa = new TextField();
 
@@ -70,7 +53,7 @@ public class InterfaceCliente extends Application {
                 nomeCliente = campoNome.getText();
                 mostrarCardapio();
             } catch (NumberFormatException ex) {
-                mostrarAlerta("Número da mesa inválido! Digite um número entre 1 e 30.");
+                mostrarAlerta("Número da mesa inválido! Digite um número entre 1 e 30.");
             }
         });
 
@@ -78,12 +61,12 @@ public class InterfaceCliente extends Application {
         layout.setPadding(new Insets(20));
         layout.setStyle("-fx-background-color: #0A2748;");
 
-        primaryStage.setScene(new Scene(layout, 800, 600));
+        primaryStage.setScene(new Scene(layout, 720, 720));
         primaryStage.show();
     }
 
     private void mostrarCardapio() {
-        Label lblTitulo = new Label("Cardápio:");
+        Label lblTitulo = new Label("Cardápio:");
         lblTitulo.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
 
         GridPane grid = new GridPane();
@@ -91,15 +74,14 @@ public class InterfaceCliente extends Application {
         grid.setVgap(10);
         grid.setPadding(new Insets(20));
 
-        ObservableList<CardapioItem> itens = FXCollections.observableArrayList(
-                new CardapioItem("Pizza", 30.0, "file:src/imagens/capa.png"),
-                new CardapioItem("Hambúrguer", 20.0, "file:src/imagens/eu.jpeg"),
-                new CardapioItem("Queijo", 10.0, "file:src/imagens/eles.jpg"),
-                new CardapioItem("Pizza", 30.0, "file:src/imagens/capa.png")
-        );
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setContent(grid);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setStyle("-fx-background: #0A2748;");
 
-        for (int i = 0; i < itens.size(); i++) {
-            CardapioItem item = itens.get(i);
+        Cardapio[] itens = Cardapio.values();
+        for (int i = 0; i < itens.length; i++) {
+            Cardapio item = itens[i];
             ImageView imgView = new ImageView(new Image(item.getImagem()));
             imgView.setFitWidth(100);
             imgView.setPreserveRatio(true);
@@ -115,14 +97,14 @@ public class InterfaceCliente extends Application {
             btnAdd.setOnAction(e -> {
                 int qtd = Integer.parseInt(lblQtd.getText()) + 1;
                 lblQtd.setText(String.valueOf(qtd));
-                pedidos.add(new Pedido(item.getNome(), item.getPreco()));
+                pedidos.add(item);
             });
 
             btnRemove.setOnAction(e -> {
                 int qtd = Integer.parseInt(lblQtd.getText());
                 if (qtd > 0) {
                     lblQtd.setText(String.valueOf(qtd - 1));
-                    pedidos.remove(new Pedido(item.getNome(), item.getPreco()));
+                    pedidos.remove(item);
                 }
             });
 
@@ -136,22 +118,22 @@ public class InterfaceCliente extends Application {
         Button btnFinalizar = new Button("Finalizar Pedido");
         btnFinalizar.setOnAction(e -> mostrarResumo());
 
-        VBox layout = new VBox(10, lblTitulo, grid, btnFinalizar);
+        VBox layout = new VBox(10, lblTitulo, scrollPane, btnFinalizar);
         layout.setPadding(new Insets(20));
         layout.setStyle("-fx-background-color: #0A2748;");
 
-        primaryStage.setScene(new Scene(layout, 800, 600));
+        primaryStage.setScene(new Scene(layout, 720, 1080));
     }
 
     private void mostrarResumo() {
-        double total = pedidos.stream().mapToDouble(Pedido::getPreco).sum();
+        double total = pedidos.stream().mapToDouble(Cardapio::getPreco).sum();
         Label lblResumo = new Label("Resumo do Pedido:");
         lblResumo.setStyle("-fx-font-size: 24px; -fx-text-fill: white;");
 
         TextArea areaResumo = new TextArea();
 
         StringBuilder resumo = new StringBuilder();
-        for (Pedido p : pedidos) {
+        for (Cardapio p : pedidos) {
             resumo.append(p.getNome()).append(" - R$ ").append(p.getPreco()).append("\n");
         }
         resumo.append("Total: R$ ").append(total);
@@ -169,7 +151,7 @@ public class InterfaceCliente extends Application {
         layout.setPadding(new Insets(20));
         layout.setStyle("-fx-background-color: #0A2748;");
 
-        primaryStage.setScene(new Scene(layout, 800, 600));
+        primaryStage.setScene(new Scene(layout, 720, 1080));
     }
 
     private void salvarPedido(double totalPago) {
@@ -190,6 +172,3 @@ public class InterfaceCliente extends Application {
         launch(args);
     }
 }
-
-
-

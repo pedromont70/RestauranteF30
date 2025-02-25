@@ -26,7 +26,7 @@ public class Garcom extends Funcionario implements Pedido {
         boolean pedidoValido = false;
 
         for (Cardapio prato : Cardapio.values()) {
-            if (pratoSolicitado.getCodigo() == prato.getCodigo()) {
+            if (pratoSolicitado.getCodigoPedido() == prato.getCodigoPedido()) {
                 Restaurante.getCozinha().adicionarPedidoCozinha(pratoSolicitado);
                 mesasServidas++;
                 pedidoValido = true;

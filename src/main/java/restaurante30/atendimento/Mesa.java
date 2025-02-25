@@ -21,7 +21,7 @@ public class Mesa implements Pedido{
         System.out.println("\n========CARDÁPIO RESTAURANTE F30=========\n");
         System.out.println("Código");
         for(Cardapio prato : Cardapio.values()){
-            System.out.println(prato.getCodigo() + " ....... " + prato.name() + " " + prato.getPreco() + "R$");
+            System.out.println(prato.getCodigoPedido() + " ....... " + prato.name() + " " + prato.getPreco() + "R$");
         }
     }
 

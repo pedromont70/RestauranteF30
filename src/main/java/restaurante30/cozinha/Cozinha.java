@@ -27,7 +27,7 @@ public class Cozinha {
     }
 
     public void adicionarPedidoCozinha(Cardapio pedido){
-        if(pedido.getEhEspecial() == true){
+        if(pedido.isEspecial() == true){
             for(Cozinheiro cozinheiro : getCozinheiros()){
                 if(cozinheiro instanceof CozinheiroEspecial && cozinheiro.getPreparandoPedido() == false){
                     ((CozinheiroEspecial)cozinheiro).prepararPedidoEspecial(pedido);

@@ -1,57 +1,73 @@
 package restaurante30.atendimento;
 
 public enum Cardapio {
-    PIZZA(30.0, 1, true),
-    HAMBURGUER(25.0, 2, true),
-    COCA_ZERO_500ML(5.0, 3, false),
-    PASTELZINHO_6UND(15.0, 4, false),
-    CAMARAO_EMPANADO(20.0, 5, false),
-    PAO_DE_ALHO(10.0, 6, false),
-    BOLINHO_DE_BACALHAU(18.0, 6, false),
-    SUSHI_20UND(14.0, 7, true),
-    LASANHA_BOLONHESA(35.0, 8, false),
-    FILET_MIGNON(50.0, 9, false),
-    RISOTO_DE_FUNGHI(38.0, 10, false),
-    PEIXE_GRELHADO(40.0, 11, false),
-    FRANGO_PARMEGIANA(28.0, 12, false),
-    ESPAGUETE_ALHO_E_OLEO(25.0, 13, false),
-    MOQUECA_DE_ARRAIA(45.0, 14, false),
-    CHURRASCO_GRELHADO(42.0, 15, false),
-    SALADA_VEGETARIANA(12.0, 16, false),
-    MACARRAO_COM_QUEIJO(22.0, 17, false),
-    BATATA_RUSTICA(12.0, 18, false),
-    ARROZ_INTEGRAL(9.0, 19, false),
-    LEGUMES_NO_VAPOR(10.0, 20, false),
-    POLENTA_FRITA(11.0, 21, false),
-    AGUA_COM_GAS_500ML(5.0, 22, false),
-    SUCO_DE_LARANJA_300ML(7.0, 23, true),
-    CAIPIRINHA_300ML(20.0, 24, true),
-    CERVEJA_IPA_500ML(12.0, 25, false),
-    REFRIGERANTE_GUARANA_500ML(6.0, 26, false),
-    CAFE_COM_LEITE_200ML(5.0, 27, true),
-    TORTA_DE_LIMAO(15.0, 28, false),
-    BABA_DE_MOCA(12.0, 29, false),
-    PAVE_DE_CHOCOLATE(14.0, 30, false);
+    PIZZA(1, "Pizza", 30.0, "file:src/imagens/pizza.png", false),
+    HAMBURGUER(2, "Hambúrguer", 20.0, "file:src/imagens/hamburguer.png", false),
+    QUEIJO(3, "Queijo", 10.0, "file:src/imagens/queijo.png", false),
+    LASANHA(4, "Lasanha", 25.0, "file:src/imagens/lasanha.png", false),
+    PASTA(5, "Pasta", 22.0, "file:src/imagens/pasta.png", false),
+    SUSHI(6, "Sushi", 35.0, "file:src/imagens/sushi.png", true),
+    SALADA(7, "Salada", 15.0, "file:src/imagens/salada.png", false),
+    FRANGO(8, "Frango Assado", 28.0, "file:src/imagens/frango.png", false),
+    BOLO(9, "Bolo de Chocolate", 18.0, "file:src/imagens/bolo.png", false),
+    SORVETE(10, "Sorvete", 12.0, "file:src/imagens/sorvete.png", false),
+    STEAK(11, "Steak", 40.0, "file:src/imagens/steak.png", true),
+    TACOS(12, "Tacos", 18.0, "file:src/imagens/tacos.png", false),
+    MACARRONADA(13, "Macarronada", 23.0, "file:src/imagens/macarronada.png", false),
+    PEIXE(14, "Peixe Grelhado", 30.0, "file:src/imagens/peixe.png", false),
+    SOPA(15, "Sopa de Legumes", 12.0, "file:src/imagens/sopa.png", false),
+    RAVIOLI(16, "Ravioli", 26.0, "file:src/imagens/ravioli.png", false),
+    CHURRASCO(17, "Churrasco", 45.0, "file:src/imagens/churrasco.png", true),
+    PANQUECAS(18, "Panquecas", 16.0, "file:src/imagens/panquecas.png", false),
+    RISOTO(19, "Risoto", 32.0, "file:src/imagens/risoto.png", false),
+    OMELETE(20, "Omelete", 14.0, "file:src/imagens/omelete.png", false),
+    TORTA(21, "Torta de Limão", 17.0, "file:src/imagens/torta.png", false),
+    COSTELA(22, "Costela Barbecue", 38.0, "file:src/imagens/costela.png", true),
+    HOTDOG(23, "Hot Dog", 15.0, "file:src/imagens/hotdog.png", false),
+    PASTEL(24, "Pastel", 9.0, "file:src/imagens/pastel.png", false),
+    CEVICHE(25, "Ceviche", 34.0, "file:src/imagens/ceviche.png", true),
+    ESPAGUETE(26, "Espaguete", 21.0, "file:src/imagens/espaguete.png", false),
+    FRANGO_XADREZ(27, "Frango Xadrez", 29.0, "file:src/imagens/frangoxadrez.png", false),
+    COXINHA(28, "Coxinha", 8.0, "file:src/imagens/coxinha.png", false),
+    BRIGADEIRO(29, "Brigadeiro", 5.0, "file:src/imagens/brigadeiro.png", false),
+    CARBONARA(30, "Carbonara", 31.0, "file:src/imagens/carbonara.png", false);
 
-    private double preco;
-    private int codigo;
-    private boolean ehEspecial; //Se vai ser preparado por um cozinheiro especial
+    private final int codigoPedido;
+    private final String nome;
+    private final double preco;
+    private final String imagem;
+    private final boolean ehEspecial;
 
-    Cardapio(double preco, int codigo, boolean ehEspecial) {
+    Cardapio(int codigoPedido, String nome, double preco, String imagem, boolean ehEspecial) {
+        this.codigoPedido = codigoPedido;
+        this.nome = nome;
         this.preco = preco;
-        this.codigo = codigo;
+        this.imagem = imagem;
         this.ehEspecial = ehEspecial;
+    }
+
+    public int getCodigoPedido() {
+        return codigoPedido;
+    }
+
+    public String getNome() {
+        return nome;
     }
 
     public double getPreco() {
         return preco;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getImagem() {
+        return imagem;
     }
 
-    public boolean getEhEspecial(){
+    public boolean isEspecial() {
         return ehEspecial;
+    }
+
+    @Override
+    public String toString() {
+        return nome + " - R$ " + preco + (ehEspecial ? " (Especial)" : "");
     }
 }
