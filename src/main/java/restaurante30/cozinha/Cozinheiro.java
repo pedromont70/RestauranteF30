@@ -78,4 +78,13 @@ public class Cozinheiro extends Funcionario {
     public void setChefe(boolean chefe) {
         this.ehChefe = chefe;
     }
+
+
+    public boolean isEhChefe() {
+        return ehChefe;
+    }
+
+    public void setEhChefe(boolean ehChefe) {
+        this.ehChefe = ehChefe;
+    }
 }

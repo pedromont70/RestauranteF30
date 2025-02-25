@@ -33,6 +33,11 @@ public abstract class Funcionario {
         this.salario = salario;
     }
 
+    public double getSalario() {
+        return this.salario;
+    }
+
+
     public String getNome() {
         return nome;
     }
